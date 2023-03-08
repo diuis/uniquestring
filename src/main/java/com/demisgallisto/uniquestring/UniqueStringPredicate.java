@@ -15,6 +15,8 @@ public class UniqueStringPredicate implements Predicate<String> {
     if (stringToValidate.length() == 1) {
       return true;
     }
-    return false;
+    var distinctChars = stringToValidate.chars().distinct().toArray();
+    var isUnique = distinctChars.length == stringToValidate.length();
+    return isUnique;
   }
 }

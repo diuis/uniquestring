@@ -22,7 +22,7 @@ public class UniqueStringPredicateTest {
   }
 
   @Test
-  void whenTheStringIsEmptyReturnsTrue() {
+  void whenTheAsciiStringIsEmptyReturnsTrue() {
 
     // given
     var stringToValidate = "";
@@ -35,7 +35,7 @@ public class UniqueStringPredicateTest {
   }
 
   @Test
-  void whenTheStringHasLengthEqualsToOneReturnsTrue() {
+  void whenTheAsciiStringHasLengthEqualsToOneReturnsTrue() {
 
     // given
     var stringToValidate = "a";
@@ -48,7 +48,7 @@ public class UniqueStringPredicateTest {
   }
 
   @Test
-  void theStringIsUnique() {
+  void whenTheAsciiStringIsUniqueReturnsTrue() {
 
     // given
     var stringToValidate = "xioez5unlc";
@@ -61,10 +61,62 @@ public class UniqueStringPredicateTest {
   }
 
   @Test
-  void theStringIsNotUnique() {
+  void whenTheAsciiStringIsNotUniqueReturnsFalse() {
 
     // given
     var stringToValidate = "xioeu5unle";
+
+    // when
+    var result = sut.test(stringToValidate);
+
+    // then
+    assertThat(result).isFalse();
+  }
+
+  @Test
+  void whenTheAsciiStringIsBlankAndTheLengthIsOneReturnsTrue() {
+
+    // given
+    var stringToValidate = " ";
+
+    // when
+    var result = sut.test(stringToValidate);
+
+    // then
+    assertThat(result).isTrue();
+  }
+
+  @Test
+  void whenTheAsciiStringIsBlankAndTheLengthIsGreaterThanOneReturnsTrue() {
+
+    // given
+    var stringToValidate = "  ";
+
+    // when
+    var result = sut.test(stringToValidate);
+
+    // then
+    assertThat(result).isFalse();
+  }
+
+  @Test
+  void whenTheUnicodeStringIsUniqueReturnsTrue() {
+
+    // given
+    var stringToValidate = "\uD801\uDC00";
+
+    // when
+    var result = sut.test(stringToValidate);
+
+    // then
+    assertThat(result).isTrue();
+  }
+
+  @Test
+  void whenTheUnicodeStringIsNotUniqueReturnsFalse() {
+
+    // given
+    var stringToValidate = "\uD801\uDC00\uD801";
 
     // when
     var result = sut.test(stringToValidate);
